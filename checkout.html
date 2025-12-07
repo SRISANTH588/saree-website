@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="checkout.css">
+    <style>
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <h1>🛒 Checkout</h1>
+        
+        <div class="checkout-steps">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <span>Shipping Details</span>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <span>Review Order</span>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <span>Payment</span>
+            </div>
+        </div>
+        
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <h2>📦 Shipping Details</h2>
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="customer-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="customer-email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="customer-phone" placeholder="+91 1234567890" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address *</label>
+                        <textarea id="customer-address" placeholder="House No, Street, Landmark" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Pincode *</label>
+                        <input type="text" id="customer-pincode" placeholder="123456" maxlength="6" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" id="customer-city" placeholder="City" required>
+                        </div>
+                        <div class="form-group">
+                            <label>State *</label>
+                            <input type="text" id="customer-state" placeholder="State" required>
+                        </div>
+                    </div>
+                    
+                    <div class="coupon-section">
+                        <h3>Apply Coupon</h3>
+                        <div class="coupon-input">
+                            <input type="text" id="coupon-code" placeholder="Enter coupon code">
+                            <button type="button" onclick="applyCoupon()">Apply</button>
+                        </div>
+                        <p id="coupon-message"></p>
+                    </div>
+
+                    <button type="button" onclick="showReviewOrder()" class="btn-place-order">Continue to Review Order</button>
+                </form>
+                
+                <div id="review-section" style="display:none;">
+                    <h2>📋 Review Your Order</h2>
+                    <div id="review-details" style="background:#f9f9f9;padding:20px;border-radius:10px;margin:20px 0;"></div>
+                    <button type="button" onclick="backToShipping()" class="btn-place-order" style="background:#666;margin-right:10px;">Back to Shipping</button>
+                    <button type="button" onclick="showPaymentOptions()" class="btn-place-order">Continue to Payment</button>
+                </div>
+                
+                <div id="payment-section" style="display:none;">
+                    <h2>💳 Payment Options</h2>
+                    <div class="payment-options" style="background:#f9f9f9;padding:20px;border-radius:10px;margin:20px 0;">
+                        <div class="payment-method" style="padding:15px;background:white;border-radius:8px;margin:10px 0;cursor:pointer;border:2px solid #ddd;" onclick="selectPayment('cod')">
+                            <input type="radio" name="payment" id="cod" value="cod">
+                            <label for="cod" style="cursor:pointer;margin-left:10px;font-weight:600;">💵 Cash on Delivery</label>
+                            <p style="margin:5px 0 0 35px;font-size:13px;color:#856404;font-weight:600;">⚠️ Pay ₹199 advance now</p>
+                        </div>
+                        <div class="payment-method" style="padding:15px;background:white;border-radius:8px;margin:10px 0;cursor:pointer;border:2px solid #ddd;" onclick="selectPayment('upi')">
+                            <input type="radio" name="payment" id="upi" value="upi">
+                            <label for="upi" style="cursor:pointer;margin-left:10px;font-weight:600;">📱 UPI Payment</label>
+                            <p style="margin:5px 0 0 35px;font-size:13px;color:#28a745;font-weight:600;">✨ Get 5% OFF on online payment</p>
+                        </div>
+                        <div class="payment-method" style="padding:15px;background:white;border-radius:8px;margin:10px 0;cursor:pointer;border:2px solid #ddd;" onclick="selectPayment('card')">
+                            <input type="radio" name="payment" id="card" value="card">
+                            <label for="card" style="cursor:pointer;margin-left:10px;font-weight:600;">💳 Credit/Debit Card</label>
+                            <p style="margin:5px 0 0 35px;font-size:13px;color:#28a745;font-weight:600;">✨ Get 5% OFF on online payment</p>
+                        </div>
+                    </div>
+                    
+                    <div id="payment-gateway" style="display:none;background:white;padding:20px;border-radius:10px;margin:20px 0;text-align:center;">
+                        <h3>Redirecting to Payment Gateway...</h3>
+                        <div style="margin:20px 0;">
+                            <div style="width:50px;height:50px;border:5px solid #f3f3f3;border-top:5px solid #8b0000;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;"></div>
+                        </div>
+                        <p>Please wait while we redirect you to complete the payment</p>
+                    </div>
+                    
+                    <button type="button" onclick="backToReview()" class="btn-place-order" style="background:#666;margin-right:10px;">Back to Review</button>
+                    <button type="button" id="cod-button" onclick="placeOrder()" class="btn-place-order" style="display:none;">🔒 Place Order</button>
+                    <div class="secure-checkout">
+                        <i class="fas fa-lock"></i> Secure Checkout | Your data is protected
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2>📋 Order Summary</h2>
+                <div class="order-items-list" id="order-items"></div>
+                <div class="summary-row">
+                    <span style="font-weight:600;">Original Price:</span>
+                    <span style="text-decoration:line-through;color:#999;font-weight:600;">₹<span id="original-total">0</span></span>
+                </div>
+                <div class="summary-row">
+                    <span style="font-weight:600;">Offer Price:</span>
+                    <span style="font-weight:600;">₹<span id="subtotal">0</span></span>
+                </div>
+                <div class="summary-row">
+                    <span style="font-weight:600;">Discount:</span>
+                    <span style="color:#28a745;font-weight:700;">-₹<span id="discount">0</span></span>
+                </div>
+                <div class="summary-row total">
+                    <span style="font-weight:700;">Total:</span>
+                    <span style="font-weight:900;">₹<span id="total">0</span></span>
+                </div>
+                <div id="online-discount-info" style="display:none;background:#d4edda;padding:15px;border-radius:10px;margin-top:15px;border-left:4px solid #28a745;">
+                    <p style="margin:0;color:#155724;font-weight:600;font-size:14px;">✨ Online Payment Discount</p>
+                    <p style="margin:5px 0 0 0;color:#155724;font-size:13px;">Save ₹<span id="online-discount-amount">0</span> with online payment</p>
+                    <p style="margin:10px 0 0 0;font-size:18px;font-weight:bold;color:#28a745;">Final Amount: ₹<span id="online-final-amount">0</span></p>
+                </div>
+                <div id="cod-advance-info" style="display:none;background:#fff3cd;padding:15px;border-radius:10px;margin-top:15px;border-left:4px solid #ffc107;">
+                    <p style="margin:0;color:#856404;font-weight:600;font-size:14px;">⚠️ COD Advance Payment</p>
+                    <p style="margin:5px 0 0 0;color:#856404;font-size:13px;">Pay 50% now: ₹<span id="cod-advance-amount">0</span></p>
+                    <p style="margin:5px 0 0 0;color:#856404;font-size:13px;">Remaining on delivery: ₹<span id="cod-remaining-amount">0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #f8f9fa; }
+        .confirmation-container { max-width: 600px; margin: 50px auto; padding: 40px; background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); text-align: center; }
+        .checkmark { width: 80px; height: 80px; margin: 0 auto 20px; }
+        .checkmark circle { fill: #28a745; }
+        .checkmark path { fill: none; stroke: white; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: checkmark 0.6s 0.3s forwards; }
+        @keyframes checkmark { to { stroke-dashoffset: 0; } }
+        h1 { color: #28a745; font-size: 32px; margin: 0 0 10px 0; }
+        .order-details { background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 25px 0; text-align: left; }
+        .detail-row { display: flex; justify-content: space-between; margin: 10px 0; }
+        .detail-label { color: #666; font-weight: 600; }
+        .detail-value { color: #333; font-weight: 700; }
+        .amount { color: #8b0000; font-size: 24px; }
+        .info-box { background: #e7f5ff; padding: 15px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #17a2b8; }
+        .info-box p { margin: 0; color: #0c5460; font-size: 14px; font-weight: 600; }
+        .buttons { display: flex; gap: 15px; margin-top: 30px; }
+        .btn { flex: 1; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-track { background: #6c757d; color: white; }
+        .btn-shop { background: #8b0000; color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="confirmation-container">
+        <svg class="checkmark" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="25"/>
+            <path d="M14 27l7.5 7.5L38 18"/>
+        </svg>
+        
+        <h1>Order Placed Successfully!</h1>
+        <p style="color: #666; font-size: 16px;">Thank you for your purchase</p>
+        
+        <div class="order-details" id="order-details"></div>
+        
+        <div class="info-box">
+            <p>📦 Your order will be delivered in 5-7 business days</p>
+        </div>
+        
+        <div class="buttons">
+            <a href="user-dashboard.html" class="btn btn-track">Track Order</a>
+            <a href="index.html" class="btn btn-shop">Continue Shopping</a>
+        </div>
+    </div>
+
+    <script>
+        const orderData = JSON.parse(localStorage.getItem('lastOrder'));
+        if (!orderData) {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('order-details').innerHTML = `
+                <div class="detail-row">
+                    <span class="detail-label">Order ID:</span>
+                    <span class="detail-value">#${orderData.id}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Amount:</span>
+                    <span class="detail-value amount">₹${orderData.total}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment Status:</span>
+                    <span class="detail-value" style="color: #28a745;">${orderData.isPaid ? '✅ Paid' : '💵 COD'}</span>
+                </div>
+            `;
+            localStorage.removeItem('lastOrder');
+        }
+    </script>
+</body>
+</html>

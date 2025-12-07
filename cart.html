@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .cart-hero { background: linear-gradient(135deg, #8b0000, #c41e3a); padding: 60px 20px; text-align: center; color: white; }
+        .cart-hero h1 { font-size: 42px; margin: 0; animation: fadeIn 0.6s; }
+        .cart-container { max-width: 1400px; margin: -40px auto 80px; padding: 0 20px; }
+        .cart-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .cart-items { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); animation: fadeIn 0.8s; }
+        .cart-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 25px; padding: 25px; background: #f8f9fa; border-radius: 15px; margin-bottom: 20px; transition: all 0.3s; animation: slideIn 0.6s; }
+        .cart-item:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(139,0,0,0.15); }
+        .item-image { width: 120px; height: 120px; border-radius: 12px; object-fit: cover; }
+        .item-details { display: flex; flex-direction: column; justify-content: space-between; }
+        .item-name { font-size: 20px; font-weight: 700; color: #333; margin: 0 0 8px 0; }
+        .item-price { font-size: 18px; color: #8b0000; font-weight: 600; }
+        .item-original { text-decoration: line-through; color: #999; font-size: 14px; margin-left: 10px; }
+        .quantity-controls { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .qty-btn { width: 35px; height: 35px; border: none; background: #8b0000; color: white; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 700; transition: all 0.3s; }
+        .qty-btn:hover { background: #a00000; transform: scale(1.1); }
+        .qty-display { font-size: 18px; font-weight: 700; min-width: 30px; text-align: center; }
+        .item-actions { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+        .item-total { font-size: 24px; font-weight: 900; color: #8b0000; }
+        .btn-remove { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .btn-remove:hover { background: #c82333; transform: translateY(-2px); }
+        .cart-summary { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); position: sticky; top: 20px; animation: fadeIn 1s; }
+        .summary-title { font-size: 24px; font-weight: 700; color: #8b0000; margin: 0 0 25px 0; }
+        .summary-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #e0e0e0; }
+        .summary-label { color: #666; font-size: 16px; }
+        .summary-value { font-weight: 600; color: #333; font-size: 16px; }
+        .summary-total { display: flex; justify-content: space-between; padding: 20px 0; margin-top: 15px; border-top: 3px solid #8b0000; }
+        .total-label { font-size: 20px; font-weight: 700; color: #333; }
+        .total-value { font-size: 28px; font-weight: 900; color: #8b0000; }
+        .btn-checkout { width: 100%; background: linear-gradient(135deg, #8b0000, #c41e3a); color: white; border: none; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
+        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(139,0,0,0.3); }
+        .btn-continue { width: 100%; background: #f8f9fa; color: #333; border: 2px solid #dee2e6; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: all 0.3s; }
+        .btn-continue:hover { background: #e9ecef; }
+        .empty-cart { text-align: center; padding: 80px 20px; }
+        .empty-cart-icon { font-size: 80px; margin-bottom: 20px; }
+        .empty-cart h2 { color: #8b0000; font-size: 32px; margin: 0 0 15px 0; }
+        .empty-cart p { color: #666; font-size: 18px; margin: 0 0 30px 0; }
+        .savings-badge { background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 15px 20px; border-radius: 12px; margin-top: 20px; text-align: center; }
+        .savings-badge p { margin: 0; font-size: 14px; }
+        .savings-amount { font-size: 24px; font-weight: 900; margin-top: 5px; }
+        @media (max-width: 1024px) { .cart-grid { grid-template-columns: 1fr; } .cart-summary { position: static; } }
+        @media (max-width: 768px) { .cart-item { grid-template-columns: 1fr; text-align: center; } .item-actions { align-items: center; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li><a href="cart.html" class="active">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="cart-hero">
+        <h1>🛒 Shopping Cart</h1>
+    </div>
+
+    <div class="cart-container">
+        <div id="cart-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('cart-content');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h2>Your Cart is Empty</h2>
+                        <p>Add some beautiful sarees to your cart!</p>
+                        <button class="btn-checkout" onclick="window.location.href='index.html'">Start Shopping</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const originalTotal = cart.reduce((sum, item) => sum + (item.originalPrice * item.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.discountedPrice * item.quantity), 0);
+            const savings = originalTotal - subtotal;
+            
+            container.innerHTML = `
+                <div class="cart-grid">
+                    <div class="cart-items">
+                        <h2 style="color:#8b0000;margin:0 0 25px 0;font-size:28px;">Cart Items (${cart.length})</h2>
+                        ${cart.map((item, index) => `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="item-image">
+                                <div class="item-details">
+                                    <div>
+                                        <h3 class="item-name">${item.name}</h3>
+                                        <p class="item-price">₹${item.discountedPrice} <span class="item-original">₹${item.originalPrice}</span></p>
+                                    </div>
+                                    <div class="quantity-controls">
+                                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
+                                        <span class="qty-display">${item.quantity}</span>
+                                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="item-actions">
+                                    <div class="item-total">₹${item.discountedPrice * item.quantity}</div>
+                                    <button class="btn-remove" onclick="removeItem(${index})">🗑️ Remove</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h3 class="summary-title">Order Summary</h3>
+                        <div class="summary-row">
+                            <span class="summary-label">Original Price</span>
+                            <span class="summary-value">₹${Math.round(originalTotal)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Discount</span>
+                            <span class="summary-value" style="color:#28a745;">-₹${Math.round(savings)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal</span>
+                            <span class="summary-value">₹${Math.round(subtotal)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Shipping</span>
+                            <span class="summary-value" style="color:#28a745;">FREE</span>
+                        </div>
+                        <div class="summary-total">
+                            <span class="total-label">Total</span>
+                            <span class="total-value">₹${Math.round(subtotal)}</span>
+                        </div>
+                        
+                        ${savings > 0 ? `
+                        <div class="savings-badge">
+                            <p>🎉 You're saving</p>
+                            <div class="savings-amount">₹${Math.round(savings)}</div>
+                        </div>
+                        ` : ''}
+                        
+                        <button class="btn-checkout" onclick="window.location.href='checkout.html'">🔒 Proceed to Checkout</button>
+                        <button class="btn-continue" onclick="window.location.href='index.html'">← Continue Shopping</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+            updateCartCount();
+        }
+        
+        function removeItem(index) {
+            if (confirm('Remove this item from cart?')) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+                updateCartCount();
+            }
+        }
+        
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) cartCount.textContent = count;
+        }
+        
+        window.onload = loadCart;
+    </script>
+</body>
+</html>

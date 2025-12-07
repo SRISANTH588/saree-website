@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Exchange - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="user-dashboard.html">Back to Orders</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <h1>🔄 Request Exchange</h1>
+        <div class="checkout-content" style="grid-template-columns:1fr;max-width:600px;">
+            <div class="checkout-form">
+                <div id="order-info" style="background:#f9f9f9;padding:20px;border-radius:10px;margin-bottom:20px;"></div>
+                <form id="exchange-form">
+                    <div class="form-group">
+                        <label>Reason for Exchange *</label>
+                        <select id="reason" required>
+                            <option value="">Select Reason</option>
+                            <option value="Wrong Size">Wrong Size</option>
+                            <option value="Defective Product">Defective Product</option>
+                            <option value="Wrong Item Delivered">Wrong Item Delivered</option>
+                            <option value="Damaged Product">Damaged Product</option>
+                            <option value="Not as Described">Not as Described</option>
+                            <option value="Color Mismatch">Color Mismatch</option>
+                            <option value="Quality Issue">Quality Issue</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Details</label>
+                        <textarea id="details" rows="4" placeholder="Please provide more details about the issue..."></textarea>
+                    </div>
+                    
+                    <div style="background:#fff3cd;padding:15px;border-radius:10px;margin:20px 0;border-left:4px solid #ffc107;">
+                        <p style="margin:0;color:#856404;font-size:0.95rem;line-height:1.6;"><strong>⚠️ Important Note:</strong></p>
+                        <p style="margin:10px 0 0 0;color:#856404;font-size:0.9rem;line-height:1.6;">
+                            • <span id="website-name-note">Lakshmi Sarees</span> is not responsible for any issues arising from incorrect bank details.<br>
+                            • You can cancel your exchange request within 2 hours after we accept it.<br>
+                            • Please verify all details carefully before submitting.
+                        </p>
+                    </div>
+                    
+                    <div style="background:#f0f8ff;padding:20px;border-radius:10px;margin:20px 0;border-left:4px solid #007bff;">
+                        <h4 style="color:#007bff;margin:0 0 15px 0;">Refund Details</h4>
+                        <div class="form-group">
+                            <label>Bank Name *</label>
+                            <select id="bank-name" required>
+                                <option value="">Select Bank</option>
+                                <option value="SBI" data-code="SBIN">State Bank of India (SBI)</option>
+                                <option value="HDFC" data-code="HDFC">HDFC Bank</option>
+                                <option value="ICICI" data-code="ICIC">ICICI Bank</option>
+                                <option value="AXIS" data-code="UTIB">Axis Bank</option>
+                                <option value="PNB" data-code="PUNB">Punjab National Bank</option>
+                                <option value="BOB" data-code="BARB">Bank of Baroda</option>
+                                <option value="CANARA" data-code="CNRB">Canara Bank</option>
+                                <option value="KOTAK" data-code="KKBK">Kotak Mahindra Bank</option>
+                                <option value="IDBI" data-code="IBKL">IDBI Bank</option>
+                                <option value="YES" data-code="YESB">Yes Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Holder Name *</label>
+                            <input type="text" id="account-name" placeholder="Enter account holder name" pattern="[A-Za-z\s]+" title="Only letters allowed" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Number *</label>
+                            <input type="text" id="account-number" placeholder="Enter account number" pattern="[0-9]+" title="Only numbers allowed" required>
+                        </div>
+                        <div class="form-group">
+                            <label>IFSC Code *</label>
+                            <input type="text" id="ifsc-code" placeholder="Enter IFSC code (e.g., SBIN0001234)" maxlength="11" style="text-transform:uppercase;" required>
+                            <p id="ifsc-error" style="color:red;font-size:0.85rem;margin:5px 0;display:none;"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>UPI ID *</label>
+                            <input type="text" id="upi-id" placeholder="Enter UPI ID (e.g., 9876543210@ybl)" required>
+                            <p id="upi-error" style="color:red;font-size:0.85rem;margin:5px 0;display:none;"></p>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-place-order">Submit Exchange Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="request-exchange.js"></script>
+</body>
+</html>

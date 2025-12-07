@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="user-dashboard.html">Back to Orders</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <h1>💬 Product Issue</h1>
+        <div class="checkout-content" style="grid-template-columns:1fr;max-width:600px;">
+            <div class="checkout-form">
+                <div id="order-info" style="background:#f9f9f9;padding:20px;border-radius:10px;margin-bottom:20px;"></div>
+                <form id="support-form">
+                    <div class="form-group">
+                        <label>Issue Category *</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Product Quality">Product Quality</option>
+                            <option value="Delivery Issue">Delivery Issue</option>
+                            <option value="Missing Items">Missing Items</option>
+                            <option value="Damaged Product">Damaged Product</option>
+                            <option value="Wrong Product">Wrong Product</option>
+                            <option value="Payment Issue">Payment Issue</option>
+                            <option value="Return/Refund">Return/Refund</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Describe Your Issue *</label>
+                        <textarea id="issue" rows="5" placeholder="Please describe your issue in detail..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Contact Method *</label>
+                        <select id="contact-method" required>
+                            <option value="">Select Method</option>
+                            <option value="Phone">Phone</option>
+                            <option value="Email">Email</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-place-order">Submit Support Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="contact-support.js"></script>
+</body>
+</html>

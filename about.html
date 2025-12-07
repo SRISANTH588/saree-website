@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1 id="about-title">About Lakshmi Sarees</h1>
+            <p>Weaving Tradition with Elegance Since Years</p>
+        </div>
+    </section>
+
+    <section class="about-content">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="icon">🎨</div>
+                    <h3>Our Story</h3>
+                    <p id="about-story">Founded with a passion for traditional Indian textiles, Lakshmi Sarees has been serving customers with premium quality sarees that celebrate the rich heritage of Indian craftsmanship.</p>
+                </div>
+                <div class="about-card">
+                    <div class="icon">✨</div>
+                    <h3>Our Mission</h3>
+                    <p>To provide authentic, high-quality sarees that blend traditional elegance with modern designs, making every woman feel confident and beautiful.</p>
+                </div>
+                <div class="about-card">
+                    <div class="icon">💎</div>
+                    <h3>Quality Promise</h3>
+                    <p>We source the finest fabrics and work with skilled artisans to ensure every saree meets our high standards of quality and craftsmanship.</p>
+                </div>
+            </div>
+
+            <div class="about-features">
+                <h2>Why Choose Us</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <h4>Premium Quality</h4>
+                            <p>Handpicked collection of silk, cotton, and designer sarees</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <h4>Authentic Designs</h4>
+                            <p>Traditional and contemporary styles for every occasion</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <h4>Customer Satisfaction</h4>
+                            <p>Dedicated support and hassle-free shopping experience</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <h4>Pan India Delivery</h4>
+                            <p>Free shipping across India with secure packaging</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p id="copyright-text">&copy; 2024 Lakshmi Sarees. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const websiteName = localStorage.getItem('websiteName') || 'Lakshmi Sarees';
+            document.getElementById('about-title').textContent = `About ${websiteName}`;
+            document.getElementById('about-story').textContent = `Founded with a passion for traditional Indian textiles, ${websiteName} has been serving customers with premium quality sarees that celebrate the rich heritage of Indian craftsmanship.`;
+            document.getElementById('copyright-text').textContent = `© ${new Date().getFullYear()} ${websiteName}. All rights reserved.`;
+        });
+    </script>
+</body>
+</html>

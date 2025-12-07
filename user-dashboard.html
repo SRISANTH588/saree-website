@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Lakshmi Sarees</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📦 My Orders</h1>
+            <p id="welcome-user"></p>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="tab-button active" onclick="showUserTab('orders')">My Orders</button>
+            <button class="tab-button" onclick="showUserTab('exchanges')">Exchange Requests</button>
+            <button class="tab-button" onclick="showUserTab('support')">Support Tickets</button>
+        </div>
+        
+        <div id="tab-orders" class="admin-section active">
+            <div id="orders-container"></div>
+        </div>
+        
+        <div id="tab-exchanges" class="admin-section" style="display:none;">
+            <h2>🔄 My Exchange Requests</h2>
+            <div id="exchanges-container"></div>
+        </div>
+        
+        <div id="tab-support" class="admin-section" style="display:none;">
+            <h2>💬 My Support Tickets</h2>
+            <div id="support-container"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="user-dashboard.js"></script>
+</body>
+</html>

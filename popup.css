@@ -1,0 +1,138 @@
+.welcome-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: slideUp 0.5s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.popup-close:hover {
+    color: #8b0000;
+}
+
+.popup-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.popup-content h2 {
+    color: #8b0000;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.popup-content p {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.coupon-code {
+    background: linear-gradient(135deg, #8b0000, #c41e3a);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: inline-block;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-popup {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-register {
+    background: linear-gradient(135deg, #8b0000, #c41e3a);
+    color: white;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.4);
+}
+
+.btn-later {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.btn-later:hover {
+    background: #e0e0e0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        padding: 30px 20px;
+    }
+
+    .popup-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .coupon-code {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+    }
+
+    .popup-buttons {
+        flex-direction: column;
+    }
+}

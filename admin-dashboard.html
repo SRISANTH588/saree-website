@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Lakshmi Sarees</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="editWebsiteNameQuick()" style="cursor:pointer;" title="Click to edit website name">Lakshmi Sarees - Admin ✏️</div>
+            <ul class="nav-menu">
+                <li><a href="admin-notifications.html">🔔 Notifications</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📊 Admin Dashboard</h1>
+            <p>Welcome back! Manage your store from here.</p>
+            <div id="notifications-badge" style="background:#ff4444;color:white;padding:10px 20px;border-radius:10px;margin-top:10px;display:none;cursor:pointer;" onclick="showNotifications()">
+                <strong>🔔 <span id="notification-count">0</span> New Notifications</strong>
+            </div>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="tab-button active" onclick="showTab('stats')">Dashboard</button>
+            <button class="tab-button" onclick="showTab('settings')">Website Settings</button>
+            <button class="tab-button" onclick="showTab('orders')">Orders</button>
+            <button class="tab-button" onclick="showTab('products')">Products</button>
+            <button class="tab-button" onclick="showTab('coupons')">Coupons</button>
+            <button class="tab-button" onclick="showTab('users')">Users</button>
+            <button class="tab-button" onclick="showTab('exchanges')">Exchanges</button>
+            <button class="tab-button" onclick="showTab('support')">Support Tickets</button>
+            <button class="tab-button" onclick="showTab('admins')">Admins</button>
+            <button class="tab-button" onclick="showTab('abandoned')">Abandoned Payments</button>
+        </div>
+        
+        <!-- Dashboard Tab -->
+        <div id="tab-stats" class="admin-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <h3>Total Orders</h3>
+                    <p id="total-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <h3>Pending Orders</h3>
+                    <p id="pending-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <h3>Delivered Orders</h3>
+                    <p id="delivered-orders">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Website Settings Tab -->
+        <div id="tab-settings" class="admin-section">
+            <h2>⚙️ Website Settings</h2>
+            <div class="settings-item">
+                <label><strong>🏪 Website Name:</strong></label>
+                <input type="text" id="website-name" value="Lakshmi Sarees">
+                <button class="btn-edit" onclick="updateWebsiteName()">Update Name</button>
+            </div>
+            <div class="settings-item">
+                <label><strong>Welcome Title:</strong></label>
+                <input type="text" id="welcome-title" value="Welcome to Lakshmi Sarees">
+                <button class="btn-edit" onclick="updateWelcomeTitle()">Update</button>
+            </div>
+            <div class="settings-item">
+                <label><strong>Welcome Subtitle:</strong></label>
+                <input type="text" id="welcome-subtitle" value="Discover the finest collection of traditional and designer sarees">
+                <button class="btn-edit" onclick="updateWelcomeSubtitle()">Update</button>
+            </div>
+
+            <h2 style="margin-top:40px;">📞 Contact Information</h2>
+            <div class="settings-item">
+                <label><strong>Phone 1:</strong></label>
+                <input type="text" id="contact-phone1" value="+91 1234567890">
+            </div>
+            <div class="settings-item">
+                <label><strong>Phone 2:</strong></label>
+                <input type="text" id="contact-phone2" value="+91 0987654321">
+            </div>
+            <div class="settings-item">
+                <label><strong>Email:</strong></label>
+                <input type="email" id="contact-email" value="info@lakshmisarees.com">
+            </div>
+            <div class="settings-item">
+                <label><strong>Address:</strong></label>
+                <input type="text" id="contact-address" value="123 Saree Street, T Nagar, Chennai, Tamil Nadu - 600017">
+            </div>
+            <div class="settings-item">
+                <label><strong>Working Hours:</strong></label>
+                <input type="text" id="contact-hours" value="Monday to Saturday, 10:00 AM - 7:00 PM">
+            </div>
+            <button class="btn-edit" onclick="updateContactInfo()">Update Contact Info</button>
+
+            <h2 style="margin-top:40px;">📄 Product Page Settings</h2>
+            <div class="settings-item">
+                <label><strong>Product Description:</strong></label>
+                <textarea id="product-description" rows="3">Experience the elegance and tradition with our premium saree collection. This exquisite piece is crafted with the finest materials and attention to detail, perfect for any special occasion or celebration.</textarea>
+            </div>
+            <div class="settings-item">
+                <label><strong>Product Features (one per line):</strong></label>
+                <textarea id="product-features" rows="6">Premium quality fabric
+Traditional craftsmanship
+Perfect for weddings and special occasions
+Easy to drape and comfortable to wear
+Comes with matching blouse piece</textarea>
+            </div>
+            <button class="btn-edit" onclick="updateProductPageSettings()">Update Product Page</button>
+
+            <h2 style="margin-top:40px;">💳 Payment Gateway Settings</h2>
+            <div class="settings-item">
+                <label><strong>Razorpay API Key:</strong></label>
+                <input type="text" id="razorpay-key" placeholder="rzp_live_xxxxxxxxxx">
+                <p style="font-size:0.9rem;color:#666;margin:5px 0;">Get your key from <a href="https://dashboard.razorpay.com/" target="_blank">Razorpay Dashboard</a></p>
+            </div>
+            <button class="btn-edit" onclick="updatePaymentSettings()">Update Payment Settings</button>
+
+            <h2 style="margin-top:40px;">🎉 Welcome Popup Settings</h2>
+            <div class="settings-item">
+                <label><strong>Popup Title:</strong></label>
+                <input type="text" id="popup-title" value="Welcome to Lakshmi Sarees!">
+            </div>
+            <div class="settings-item">
+                <label><strong>Popup Message:</strong></label>
+                <input type="text" id="popup-message" value="Register as a new customer and get an exclusive welcome gift!">
+            </div>
+            <div class="settings-item">
+                <label><strong>Coupon Code:</strong></label>
+                <input type="text" id="popup-coupon" value="WELCOME5">
+            </div>
+            <div class="settings-item">
+                <label><strong>Discount Percentage:</strong></label>
+                <input type="number" id="popup-discount" value="5">
+            </div>
+            <div class="settings-item">
+                <label><strong>Popup Image:</strong></label>
+                <input type="file" id="popup-image" accept="image/*">
+                <p style="font-size:0.9rem;color:#666;">Upload an image for the popup (optional)</p>
+            </div>
+            <button class="btn-edit" onclick="updatePopupSettings()">Update Popup</button>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="tab-orders" class="admin-section">
+            <h2>📦 Manage Orders</h2>
+            <div id="orders-list"></div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="tab-products" class="admin-section">
+            <h2>🛍️ Manage Products</h2>
+            <button class="btn-add" onclick="showAddProductForm()">Add Product</button>
+            
+            <div id="add-product-form" style="display:none;background:#f9f9f9;padding:20px;border-radius:10px;margin:20px 0;">
+                <h3>Add New Product</h3>
+                <input type="text" id="new-product-name" placeholder="Product Name" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;">
+                <input type="file" id="new-product-image" accept="image/*" style="width:100%;padding:10px;margin:10px 0;">
+                <input type="number" id="new-product-original-price" placeholder="Original Price" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;">
+                <input type="number" id="new-product-discounted-price" placeholder="Discounted Price" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;">
+                <input type="number" id="new-product-discount" placeholder="Discount %" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;">
+                <textarea id="new-product-description" placeholder="Product Description" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;" rows="3"></textarea>
+                <textarea id="new-product-features" placeholder="Product Features (one per line)" style="width:100%;padding:10px;margin:10px 0;border:2px solid #ddd;border-radius:5px;" rows="5"></textarea>
+                <button class="btn-submit" onclick="saveNewProduct()" style="margin-right:10px;">Save Product</button>
+                <button class="btn-delete" onclick="hideAddProductForm()">Cancel</button>
+            </div>
+            
+            <div id="products-list"></div>
+        </div>
+
+        <!-- Coupons Tab -->
+        <div id="tab-coupons" class="admin-section">
+            <h2>🎫 Manage Coupons</h2>
+            <button class="btn-add" onclick="addCoupon()">Add Coupon</button>
+            <div id="coupons-list"></div>
+        </div>
+
+        <!-- Users Tab -->
+        <div id="tab-users" class="admin-section">
+            <h2>👥 Registered Users</h2>
+            <div id="users-list"></div>
+        </div>
+
+        <!-- Exchanges Tab -->
+        <div id="tab-exchanges" class="admin-section">
+            <h2>🔄 Exchange Requests</h2>
+            <div id="exchanges-list"></div>
+        </div>
+
+        <!-- Support Tickets Tab -->
+        <div id="tab-support" class="admin-section">
+            <h2>💬 Support Tickets</h2>
+            <div id="support-list"></div>
+        </div>
+
+        <!-- Notifications Tab -->
+        <div id="tab-notifications" class="admin-section">
+            <h2>🔔 Notifications</h2>
+            <button class="btn-delete" onclick="clearAllNotifications()" style="margin-bottom:20px;">Clear All</button>
+            <div id="notifications-list"></div>
+        </div>
+
+        <!-- Abandoned Payments Tab -->
+        <div id="tab-abandoned" class="admin-section">
+            <h2>⚠️ Abandoned Payments</h2>
+            <div id="abandoned-list"></div>
+        </div>
+
+        <!-- Admins Tab -->
+        <div id="tab-admins" class="admin-section">
+            <h2>👥 Manage Admins</h2>
+            <button class="btn-add" onclick="showAddAdminForm()">Add Admin</button>
+            
+            <div id="add-admin-form" style="display:none;background:#f9f9f9;padding:20px;border-radius:10px;margin:20px 0;">
+                <h3>Add New Admin</h3>
+                <input type="text" id="new-admin-username" placeholder="Username (Required)" style="width:100%;padding:12px;margin:10px 0;border:2px solid #ddd;border-radius:8px;">
+                <input type="email" id="new-admin-email" placeholder="Email (Optional - can be used for login)" style="width:100%;padding:12px;margin:10px 0;border:2px solid #ddd;border-radius:8px;">
+                <input type="password" id="new-admin-password" placeholder="Password (Required)" style="width:100%;padding:12px;margin:10px 0;border:2px solid #ddd;border-radius:8px;">
+                <button class="btn-submit" onclick="saveNewAdmin()" style="margin-right:10px;">Add Admin</button>
+                <button class="btn-delete" onclick="hideAddAdminForm()">Cancel</button>
+            </div>
+            
+            <div id="admins-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+    <script src="admin-tabs.js"></script>
+</body>
+</html>
